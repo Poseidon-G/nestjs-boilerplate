@@ -1,22 +1,23 @@
 type User {
-  id: ID!
+  id: Int!
   username: String!
   email: String!
   address: String
   phone: String!
+  comments: [Comment]
 }
 
 type QueryUsersResponse {
   users: [User!]!
-  page: Number!
-  size: Number!
-  totalItems: Number!
-  totalPages: Number!
+  page: Int!
+  size: Int!
+  totalItems: Int!
+  totalPages: Int!
   nextPage: Boolean!
   previousPage: Boolean!
 }
 
 extend type Query {
-  getDetail(id: ID!): User
+  getDetail(id: Int!): User
   getUsers(page: Int, size: Int): [User]
 }

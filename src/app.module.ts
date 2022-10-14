@@ -6,6 +6,7 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
 import { UsersModule } from "./users/users.module";
+import { CommentsModule } from "./comments/comments.module";
 
 @Module({
   imports: [
@@ -21,8 +22,10 @@ import { UsersModule } from "./users/users.module";
     }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      typePaths: ['**/*.graphql'],
+      typePaths: ['./**/*.graphql'],
     }),
-    UsersModule],
+    UsersModule,
+    CommentsModule,
+  ],
 })
 export class AppModule { }
