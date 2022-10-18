@@ -1,24 +1,17 @@
-import {
-    Resolver,
-    Query,
-    Args,
-} from "@nestjs/graphql"
-import { Inject } from '@nestjs/common';
-import { UsersService } from "./users.service";
+import { Resolver, Query, Args } from '@nestjs/graphql';
+import { UsersService } from './users.service';
 
 @Resolver()
 export class UsersResolver {
-    constructor(
-        private readonly usersService: UsersService,
-    ) { }
+  constructor(private readonly usersService: UsersService) {}
 
-    @Query()
-    async getDetail(@Args("id") id: number) {
-        return this.usersService.findOne({ id });
-    }
+  @Query()
+  async getDetail(@Args('id') id: number) {
+    return this.usersService.findOne({ id });
+  }
 
-    @Query()
-    getUsers(@Args("page") page: number, @Args("size") size: number) {
-        return this.usersService.findAll(page, size, "");
-    }
+  @Query()
+  getUsers(@Args('page') page: number, @Args('size') size: number) {
+    return this.usersService.findAll(page, size);
+  }
 }
