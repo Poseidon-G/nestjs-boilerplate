@@ -6,6 +6,8 @@ import { HttpExceptionFilter } from './pipe/http-exception.filter';
 import { HttpAdapterHost } from '@nestjs/core';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,6 +24,15 @@ async function bootstrap() {
 
   app.setGlobalPrefix(configService.get('server.apiPrefix'));
   app.use(morgan('dev'));
+
+  const config = new DocumentBuilder()
+    .setTitle('API init codebase')
+    .setDescription('API init codebase docs')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
 
   await app.listen(configService.get('server.port'));
 }

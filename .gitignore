@@ -6,8 +6,8 @@
 #env file
 .env
 
-#remove package-json.lock
-.package-json.lock
+#remove package-lock.json
+.package-lock.json
 
 # Logs
 logs
