@@ -21,10 +21,10 @@ import { LoggerModule } from './logger/logger.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    // GraphQLModule.forRoot<ApolloFederationDriverConfig>({
-    //   driver: ApolloFederationDriver,
-    //   typePaths: ['./**/*.graphql'],
-    // }),
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      driver: ApolloFederationDriver,
+      typePaths: ['./**/*.graphql'],
+    }),
     UsersModule,
   ],
 })

@@ -4,7 +4,6 @@ type User {
   email: String!
   address: String
   phone: String!
-  comments: [Comment]
 }
 
 type QueryUsersResponse {
