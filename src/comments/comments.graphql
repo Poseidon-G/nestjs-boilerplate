@@ -1,9 +1,0 @@
-type Comment {
-  id: Int!
-  userId: Int!
-  content: String!
-}
-
-extend type Query {
-  getCommentsByUserId(userId: Int!): [Comment]
-}

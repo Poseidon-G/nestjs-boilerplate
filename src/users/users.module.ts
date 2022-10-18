@@ -4,10 +4,9 @@ import { User } from './entities/user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { UsersResolver } from './users.resolver';
-import { CommentsModule } from 'src/comments/comments.module';
 
 @Module({
-    imports: [forwardRef(() => CommentsModule), TypeOrmModule.forFeature([User])],
+    imports: [TypeOrmModule.forFeature([User])],
     controllers: [UsersController],
     providers: [UsersService, UsersResolver],
 })

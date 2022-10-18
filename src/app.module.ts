@@ -6,10 +6,11 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
 import { UsersModule } from "./users/users.module";
-import { CommentsModule } from "./comments/comments.module";
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
+    LoggerModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -20,12 +21,11 @@ import { CommentsModule } from "./comments/comments.module";
       autoLoadEntities: true,
       synchronize: true,
     }),
-    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
-      driver: ApolloFederationDriver,
-      typePaths: ['./**/*.graphql'],
-    }),
+    // GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+    //   driver: ApolloFederationDriver,
+    //   typePaths: ['./**/*.graphql'],
+    // }),
     UsersModule,
-    CommentsModule,
   ],
 })
 export class AppModule { }

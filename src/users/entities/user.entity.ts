@@ -15,7 +15,6 @@ import {
 import * as bcrypt from 'bcrypt';
 
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Comment } from 'src/comments/entities/comment.entity';
 
 @Entity()
 @ObjectType()
@@ -71,7 +70,4 @@ export class User {
             this.password = await bcrypt.hash(this.password, salt);
         }
     }
-
-    @Field(type => [Comment])
-    comments: Comment[];
 }

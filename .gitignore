@@ -2,6 +2,13 @@
 /dist
 /node_modules
 
+
+#env file
+.env
+
+#remove package-json.lock
+.package-json.lock
+
 # Logs
 logs
 *.log
