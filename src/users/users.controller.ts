@@ -44,10 +44,11 @@ export class UsersController {
                 throw ERROR_CODE.USER_NOT_FOUND;
             }
 
+            throw ERROR_CODE.INTERNAL_SERVER_ERROR
             return user;
         }
         catch (error) {
-            console.log("error", error);
+
             if (error.statusCode) {
                 throw new CustomException(error);
             }
