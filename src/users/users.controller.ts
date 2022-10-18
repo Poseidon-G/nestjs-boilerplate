@@ -47,6 +47,7 @@ export class UsersController {
             return user;
         }
         catch (error) {
+            console.log("error", error);
             if (error.statusCode) {
                 throw new CustomException(error);
             }

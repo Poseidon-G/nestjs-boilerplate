@@ -1,5 +1,4 @@
 import { Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { GraphQLModule } from "@nestjs/graphql";
 import {
   ApolloFederationDriver,
@@ -7,20 +6,29 @@ import {
 } from '@nestjs/apollo';
 import { UsersModule } from "./users/users.module";
 import { LoggerModule } from './logger/logger.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import databaseConfig from './config/database.config';
+import serverConfig from "./config/server.config";
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmConfigService } from './database/typeorm-config.service';
+import { DataSource } from 'typeorm';
+
 
 @Module({
   imports: [
-    LoggerModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'admin',
-      password: '123456',
-      database: 'mydb',
-      autoLoadEntities: true,
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [databaseConfig, serverConfig],
+      envFilePath: '.env',
     }),
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmConfigService,
+      dataSourceFactory: async (options) => {
+        const dataSource = await new DataSource(options).initialize();
+        return dataSource;
+      },
+    }),
+    LoggerModule,
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       typePaths: ['./**/*.graphql'],
