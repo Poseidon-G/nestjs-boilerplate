@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    depends_on:
+      - postgres_db
+    env_file:
+      - .env
+    ports:
+      - ${SERVER_PORT}:3000
+
+  postgres_db:
+        image: postgres:15.0-alpine
+        ports:
+            - ${DATABASE_PORT}:5432
+        environment: 
+            POSTGRES_USER: ${DATABASE_USERNAME}
+            POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+            POSTGRES_DB: ${DATABASE_NAME}
