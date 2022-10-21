@@ -31,8 +31,9 @@ import { DataSource } from 'typeorm';
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       typePaths: ['./**/*.graphql'],
+      persistedQueries: false
     }),
     UsersModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

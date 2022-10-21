@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16-alpine as builder
 
 # Create app directory, this is in our container/in our image
 WORKDIR /usr/src/app
@@ -14,10 +14,20 @@ RUN yarn install
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY . .
+COPY --chown=node:node . .
 
-RUN yarn build
+RUN yarn build 
 
-EXPOSE 3000
+# FROM node:16-alpine
+
+# ENV NODE_ENV production
+
+# WORKDIR /usr/src/app
+
+# COPY --from=builder --chown=node:node /usr/src/app/package.json ./
+# COPY --from=builder --chown=node:node /usr/src/app/yarn.lock ./
+# COPY --from=builder --chown=node:node /usr/src/app/dist ./dist/
+# COPY --from=builder --chown=node:node /usr/src/app/node_modules/ ./node_modules/
+# COPY --from=builder --chown=node:node /usr/src/app/src/schemas/ ./dist/src/schemas/
 
 CMD [ "node", "dist/src/main.js" ]
